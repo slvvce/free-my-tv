@@ -25,6 +25,16 @@ jobs:
           "$SDKM" --sdk_root="$ANDROID_HOME" "platforms;android-34" "build-tools;34.0.0"
           echo "ANDROID_HOME=$ANDROID_HOME" >> "$GITHUB_ENV"
 
+      - name: Write config
+        env:
+          TMDB_KEY: ${{ secrets.TMDB_KEY }}
+        run: |
+          {
+            echo "tmdb_key=$TMDB_KEY"
+            echo "tmdb_region=BR"
+            echo "currency=BRL"
+          } > config.properties
+
       - name: Build
         run: ./build.sh
 
